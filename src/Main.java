@@ -17,11 +17,11 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        File file = new File("basket.txt");
+        File file = new File("basket.bin");
         Scanner scanner = new Scanner(System.in);
         printProducts();
         while (true) {
-            Basket basket = file.exists() ? Basket.loadFromTxtFile(file) : new Basket(products, prices);
+            Basket basket = file.exists() ? Basket.loadFromBinFile(file) : new Basket(products, prices);
 
             printOptions();
             String input = scanner.nextLine();
@@ -47,8 +47,7 @@ public class Main {
                     continue;
                 }
                 basket.addToCart(productNumber, amount);
-                basket.saveTxt(file);
-
+                basket.saveBin(file, basket);
             } catch (NumberFormatException e) {
                 System.out.println("Вы ввели " + input + " Введите два числа или end");
             }
