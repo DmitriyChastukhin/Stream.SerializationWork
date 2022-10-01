@@ -5,10 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ClientLog {
-
     private int ProductNum;
     private int amount;
-
     private List<Integer> productNumLog = new LinkedList<>();
     private List<Integer> amountLog = new LinkedList<>();
 
@@ -26,8 +24,7 @@ public class ClientLog {
             for (int i = 0; i < productNumLog.size(); i++) {
                 writer.append(productNumLog.get(i) + "," + amountLog.get(i) + "\n");
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

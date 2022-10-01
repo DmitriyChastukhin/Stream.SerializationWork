@@ -17,9 +17,11 @@ public class Main {
                         + products[i] + " - "
                         + prices[i] + " руб/шт"));
     }
+
     static void printOptions() {
         System.out.println("Выберите товар и его количество или введите \"end\"");
     }
+
     public static void main(String[] args) throws IOException, ParseException {
         File file = new File("basket.json"); //создание файла
         Scanner scanner = new Scanner(System.in);
@@ -28,7 +30,7 @@ public class Main {
 
         while (true) {
             File txtLog = new File("log.csv");
-            Basket basket = file.exists() ? Basket.loadFromJsonFile (file) : new Basket(products, prices);
+            Basket basket = file.exists() ? Basket.loadFromJsonFile(file) : new Basket(products, prices);
 
             printOptions();
             String input = scanner.nextLine();
@@ -57,7 +59,6 @@ public class Main {
                 log.log(productNumber, amount);
                 log.exportAsCSV(txtLog);
                 basket.saveJson(file);
-
 
             } catch (NumberFormatException e) {
                 System.out.println("Некорректный символ. Вы ввели " + input + " Введите два числа или end");

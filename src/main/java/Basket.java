@@ -1,11 +1,11 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.parser.ParseException;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 public class Basket {
     private String[] products;
     private int[] prices;
@@ -19,11 +19,13 @@ public class Basket {
         this.prices = prices;
         this.amount = new int[products.length];
     }
+
     public Basket(String[] products, int[] prices, int[] amount) {
         this.products = products;
         this.prices = prices;
         this.amount = amount;
     }
+
     public void addToCart(int productNum, int amount) {
         this.amount[productNum - 1] += amount;
     }
@@ -32,6 +34,7 @@ public class Basket {
 
         return amount;
     }
+
     public String[] getProducts() {
         return products;
     }
@@ -58,14 +61,12 @@ public class Basket {
         }
     }
 
-
     //восстановление корзины из файла
     public static Basket loadFromJsonFile(File jsonFile) throws IOException, ParseException {
         ObjectMapper mapper = new ObjectMapper();
         Basket basket = mapper.readValue(jsonFile, Basket.class);
         return basket;
     }
-
 
     public void printCart() {
         IntStream
