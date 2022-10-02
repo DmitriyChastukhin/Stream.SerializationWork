@@ -1,7 +1,8 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.parser.ParseException;
-import java.io.File;
-import java.io.IOException;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -62,10 +63,45 @@ public class Basket {
     }
 
     //восстановление корзины из файла
-    public static Basket loadFromJsonFile(File jsonFile) throws IOException, ParseException {
+    public static Basket loadFromJsonFile(File jsonFile) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Basket basket = mapper.readValue(jsonFile, Basket.class);
         return basket;
+    }
+
+    protected void saveTxt(File file) {
+        try (PrintWriter saveTxt = new PrintWriter(file)) {
+            for (int i = 0; i < products.length; i++) {
+                saveTxt.print(products[i] + " " + prices[i] + " " + amount[i] + "\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //воссоздание корзины из файла
+    public static Basket loadFromTxtFile(File textFile) {
+        try {
+            BufferedReader buff = new BufferedReader(new FileReader(textFile));
+            String s;
+            List<String> products = new ArrayList<>();
+            List<Integer> prices = new ArrayList<>();
+            List<Integer> amount = new ArrayList<>();
+            while ((s = buff.readLine()) != null) {
+                String[] parts = s.split(" ");
+                products.add(parts[0]);
+                prices.add(Integer.parseInt(parts[1]));
+                amount.add(Integer.parseInt(parts[2]));
+            }
+            String[] product = products.toArray(new String[products.size()]);
+            int[] price = prices.stream().mapToInt(i -> i).toArray();
+            int[] amounts = amount.stream().mapToInt(i -> i).toArray();
+            buff.close();
+
+            return new Basket(product, price, amounts);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void printCart() {
