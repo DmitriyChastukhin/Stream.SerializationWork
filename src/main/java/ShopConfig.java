@@ -11,14 +11,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class ShopConfig {
-    private static boolean loadEnabled = false;
-    private static File loadFileName;
-    private static boolean loadFormat = false;
-    private static boolean saveEnabled = false;
-    private static File saveFileName;
-    private static boolean saveFormat = false;
-    private static boolean logEnabled = false;
-    private static File logFileName;
+    private boolean loadEnabled = false;
+    private File loadFileName;
+    private boolean loadFormat = false;
+    private boolean saveEnabled = false;
+    private File saveFileName;
+    private boolean saveFormat = false;
+    private boolean logEnabled = false;
+    private File logFileName;
 
     public boolean isLoad() {
         return loadEnabled;
